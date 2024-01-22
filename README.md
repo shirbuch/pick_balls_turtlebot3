@@ -11,6 +11,20 @@ Services:
 Messages:
 1. Object(name, x, y)
 
+### Build:
+1. Unzip pick_balls_turtlebot3.zip into ~/catkin_ws/src
+2. open terminal and cd into (unzipped) pick_balls_turtlebot3
+3. chmod +x install.sh
+4. ./install.sh (this is to compile and source the pick_balls_turtlebot3 package and chmod +x to all script files)
+//todo insert our_world launch and model to turtlebot3_gazebo
+//todo save map files in root
+
+### Run:
+// todo put together after finish coding
+1. roslaunch turtlebot3_gazebo turtlebot3_our_world.launch
+2. roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/map.yaml
+3. roslaunch pick_balls_turtlebot3 control.launch
+
 ### Change Speed (not working):
 by https://github.com/ROBOTIS-GIT/turtlebot3/issues/897
 \catkin_ws\src\turtlebot3_simulations\turtlebot3_gazebo\include\turtlebot3_gazebo\turtlebot3_drive.h
@@ -35,12 +49,3 @@ by https://github.com/ROBOTIS-GIT/turtlebot3/issues/897
   min_vel_x: 0.08
 
   max_vel_theta:  3 # 1.0
-
-### Build:
-1. Unzip pick_balls_turtlebot3.zip into ~/catkin_ws/src
-2. open terminal and cd into (unzipped) pick_balls_turtlebot3
-3. chmod +x install.sh
-4. ./install.sh (this is to compile and source the pick_balls_turtlebot3 package and chmod +x to all script files)
-
-### Run:
-1. roslaunch pick_balls_turtlebot3 control.launch
