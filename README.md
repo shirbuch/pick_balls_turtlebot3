@@ -11,6 +11,31 @@ Services:
 Messages:
 1. Object(name, x, y)
 
+### Change Speed (not working):
+by https://github.com/ROBOTIS-GIT/turtlebot3/issues/897
+\catkin_ws\src\turtlebot3_simulations\turtlebot3_gazebo\include\turtlebot3_gazebo\turtlebot3_drive.h
+ define LINEAR_VELOCITY  0.44 //0.3
+ define ANGULAR_VELOCITY 2.2  //1.5
+
+\catkin_ws\src\turtlebot3\turtlebot3_navigation\param\dwa_local_planner_params_burger.yaml
+  max_vel_x: 9 # 0.22
+  min_vel_x: -0.22
+
+  max_vel_y: 0.0
+  min_vel_y: 0.0
+
+  max_vel_trans:  9 # 0.22
+  min_vel_trans:  0.11
+
+  max_vel_theta: 9 # 2.75
+  min_vel_theta: 1.37
+
+\catkin_ws\src\turtlebot3\turtlebot3_navigation\param\base_local_planner_params.yaml
+  max_vel_x: 9 # 0.18
+  min_vel_x: 0.08
+
+  max_vel_theta:  3 # 1.0
+
 ### Build:
 1. Unzip pick_balls_turtlebot3.zip into ~/catkin_ws/src
 2. open terminal and cd into (unzipped) pick_balls_turtlebot3
