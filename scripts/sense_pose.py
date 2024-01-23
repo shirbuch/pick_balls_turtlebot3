@@ -3,12 +3,30 @@
 from __future__ import print_function
 
 import rospy
+import std_msgs.msg
 from pick_balls_turtlebot3.srv import SensePose,SensePoseResponse
+from geometry_msgs.msg import Point, Pose
+from gazebo_msgs.msg import ModelStates, ModelState
+from tf.transformations import quaternion_from_euler, euler_from_quaternion
+
+def gps_location():
+    # request a GPS like pose information from the Gazebo server
+    rospy.loginfo("Requesting Global Robot Pose from Gazebo")
+    model_state = rospy.wait_for_message("gazebo/model_states", ModelStates)
+    me_pose = Pose()
+    me_pose = model_state.pose[2]
+    me_pose_angles = euler_from_quaternion([me_pose.orientation.x, me_pose.orientation.y, me_pose.orientation.z, me_pose.orientation.w])
+    print('My pose is (x,y,theta): ')
+    print(me_pose.position.x, me_pose.position.y, me_pose_angles[2])
+    return me_pose.position.x, me_pose.position.y, me_pose_angles[2]
 
 # Service logic
 def sense_pose():
     print(f"sense_pose")
-    return 0, 0, 0
+    x, y, theta = gps_location()
+    h = std_msgs.msg.Header()
+    h.stamp = rospy.Time.now() 
+    return h, x, y
 
 def handle_sense_pose(req):
     try:

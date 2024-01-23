@@ -42,7 +42,7 @@ def sense_pose():
     try:
         sense_pose_srv = rospy.ServiceProxy('sense_pose', SensePose)
         resp = sense_pose_srv()
-        return
+        return resp
     except rospy.ServiceException as e:
         print("Service call failed: %s"%e)
 
@@ -66,9 +66,11 @@ if __name__ == "__main__":
     print("============  CONTROL  ===============")
     print("=====================================")
 
+    print(f"=== Pose: {sense_pose()}\n===")
     navigate(1, 1, 1.0)
+    print(f"=== Pose: {sense_pose()}\n===")
     navigate(0, 0, 3.0)
+    print(f"=== Pose: {sense_pose()}\n===")
     # pick_object(OBJECT)
     # place_object(OBJECT)
-    # sense_pose()
     # sense_objects()
