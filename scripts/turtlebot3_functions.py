@@ -13,19 +13,7 @@ def distance(x1, y1, x2, y2):
     return dist
 
 
-def find_objects():
-    # request from Gazebo the global pose of all objects
-    rospy.loginfo("Requesting Global Object Poses from Gazebo")
-    model_state = rospy.wait_for_message("gazebo/model_states", ModelStates)
-    number_of_objects = len(model_state.pose)  - 3 # ignore: [ground_plane, room1, turtlebot3_burger]    	  	   	
-    print('I found ' +str(number_of_objects) +' Objects')
-    print(model_state.name[3:])
-    #print('They are at: ')
-    #object_pose = []
-    #for n in range(number_of_objects):
-    #   object_pose.append(model_state.pose[3+n])
-    #print(object_pose)
-    return model_state.name[3:], model_state.pose[3:]
+
 
 
 def pick_object(object_name, object_position):

@@ -16,8 +16,8 @@ Messages:
 2. open terminal and cd into (unzipped) pick_balls_turtlebot3
 3. chmod +x install.sh
 4. ./install.sh (this is to compile and source the pick_balls_turtlebot3 package and chmod +x to all script files)
-//todo insert our_world launch and model to turtlebot3_gazebo
-//todo save map files in root
+// todo insert our_world launch and model to turtlebot3_gazebo
+// todo save map files in root
 
 ### Run:
 // todo put together after finish coding and wait for each to load before continuing

@@ -3,9 +3,14 @@
 from __future__ import print_function
 
 import rospy
+import subprocess
 from pick_balls_turtlebot3.srv import *
 from pick_balls_turtlebot3.msg import Object
+from geometry_msgs.msg import Pose
+from gazebo_msgs.srv import SpawnModel, DeleteModel, DeleteModelRequest
 
+# todo make it work on installed env
+GAZEBO_PATH = subprocess.getoutput("rospack find turtlebot3_gazebo")
 OBJECT = Object("ball", 0, 0)
 
 class Object:
@@ -41,18 +46,38 @@ def place_object(object):
 def sense_pose():
     try:
         sense_pose_srv = rospy.ServiceProxy('sense_pose', SensePose)
-        resp = sense_pose_srv()
-        return resp
+        return sense_pose_srv()
     except rospy.ServiceException as e:
         print("Service call failed: %s"%e)
 
 def sense_objects():
     try:
         sense_objects_srv = rospy.ServiceProxy('sense_objects', SenseObjects)
-        resp = sense_objects_srv()
-        return
+        return sense_objects_srv()
     except rospy.ServiceException as e:
         print("Service call failed: %s"%e)
+
+# Init environment
+def spawn_model(name, file_location=GAZEBO_PATH+'/models/objects/red_ball.sdf', spawn_location=[0.0,0.0,1.0]):
+    #rospy.init_node('spawn_model', log_level=rospy.INFO)
+    pose = Pose()
+    pose.position.x = spawn_location[0]
+    pose.position.y = spawn_location[1]
+    pose.position.z = spawn_location[2]
+    spawn_model_client = rospy.ServiceProxy('/gazebo/spawn_sdf_model', SpawnModel)
+    spawn_model_client(model_name=name,
+                       model_xml=open(file_location, 'r').read(),
+                       robot_namespace='/stuff', initial_pose=pose, reference_frame='world')
+
+def create_scene():  
+    #delete_model('blue_cube') 
+    #time.sleep(1) 
+    spawn_locations = [[1.25,0.9,0.2],[2.25,0.9,0.2],[-0.3,0,0.2],[3.0,-1.5,0.2]]      
+    for n in range(len(spawn_locations)):
+        #delete_model('red_ball'+str(n)) 
+        #time.sleep(.5)
+        spawn_model('red_ball'+str(n), GAZEBO_PATH+'/models/objects/red_ball.sdf', spawn_locations[n])
+    spawn_model('blue_cube', GAZEBO_PATH+'/models/objects/blue_cube.sdf', [1.3,-0.5,1] ) 		
 
 # Service logic
 if __name__ == "__main__":
@@ -66,11 +91,13 @@ if __name__ == "__main__":
     print("============  CONTROL  ===============")
     print("=====================================")
 
-    print(f"=== Pose: {sense_pose()}\n===")
-    navigate(1, 1, 1.0)
-    print(f"=== Pose: {sense_pose()}\n===")
-    navigate(0, 0, 3.0)
-    print(f"=== Pose: {sense_pose()}\n===")
+    create_scene()
+    # print(f"=== Pose: {sense_pose()}\n===")
+    # navigate(1, 1, 1.0)
+    # print(f"=== Pose: {sense_pose()}\n===")
+    # navigate(0, 0, 3.0)
+    # print(f"=== Pose: {sense_pose()}\n===")
     # pick_object(OBJECT)
     # place_object(OBJECT)
-    # sense_objects()
+    objects = sense_objects()
+    print(f"=== Objects: {objects}\n===")
