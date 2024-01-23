@@ -9,6 +9,7 @@ from geometry_msgs.msg import Point, Pose
 from gazebo_msgs.msg import ModelStates, ModelState
 from tf.transformations import quaternion_from_euler, euler_from_quaternion
 
+# todo fix duplicate from pick_object
 def gps_location():
     # request a GPS like pose information from the Gazebo server
     rospy.loginfo("Requesting Global Robot Pose from Gazebo")

@@ -8,31 +8,9 @@ import time
 from environment_functions import spawn_model, delete_model, initialize_environment, create_scene
 
 
-def distance(x1, y1, x2, y2):
-    dist = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** .5
-    return dist
 
 
-
-
-
-def pick_object(object_name, object_position):
-	print('Trying to pick up: ' + object_name)
-	me_pose = gps_location()
-	object_x = object_position[0]
-	object_y = object_position[1]	
-	dist = distance(me_pose[0],me_pose[1],object_x,object_y)
-	# TODO isEmpty = fcn_that_checks_that_nothing_is_in_the_knapsack() 
-	if dist <.35 and isEmpty:
-		delete_model(object_name)
-		time.sleep(1)
-		spawn_model(name=object_name, spawn_location=[0.0, -0.7, 1.0]) #put in knapsack
-		time.sleep(1)
-		print('...successfully.')
-		
-	else: 
-		print('...unsuccessfully. Need to be closer to the object to pick it')
-		
+	
 
 
 def place_object(object_name, place_location):

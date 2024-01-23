@@ -7,12 +7,7 @@ import time
 def initialize_environment():
     rospy.init_node('turtlebot3_ff', anonymous=True, log_level=rospy.WARN)
 
-def delete_model(name):
-    # delete model
-    srv = rospy.ServiceProxy('/gazebo/delete_model', DeleteModel)
-    req = DeleteModelRequest()
-    req.model_name = name
-    resp = srv(req)
+
 
   
 def goal_checker():
