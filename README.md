@@ -25,7 +25,12 @@ Messages:
 2. roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/map.yaml
 3. roslaunch pick_balls_turtlebot3 control.launch
 
-### Change Speed (not working):
+### Change Speed (working!):
+ ### here it worked!
+  sim_time: 6 # 0.8
+  vx_samples: 50 # 18
+
+### Here it was changed and didn't work so not sure if necessary
 by https://github.com/ROBOTIS-GIT/turtlebot3/issues/897
 \catkin_ws\src\turtlebot3_simulations\turtlebot3_gazebo\include\turtlebot3_gazebo\turtlebot3_drive.h
  define LINEAR_VELOCITY  0.44 //0.3

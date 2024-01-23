@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 import rospy
-import actionlib
 import numpy as np
 import random
 import copy
 import time
 from geometry_msgs.msg import Point, Pose
-from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from gazebo_msgs.msg import ModelStates, ModelState
 from tf.transformations import quaternion_from_euler, euler_from_quaternion
 from environment_functions import spawn_model, delete_model, initialize_environment, create_scene
@@ -15,28 +13,6 @@ from environment_functions import spawn_model, delete_model, initialize_environm
 def distance(x1, y1, x2, y2):
     dist = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** .5
     return dist
-
-
-def movebase_client(x,y,w=1.0):
-    #moves the robot collision free to a x,y,theta pose (must be valid/reachable in the map)
-    client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
-    client.wait_for_server()
-    goal = MoveBaseGoal()
-    goal.target_pose.header.frame_id = "map"
-    goal.target_pose.header.stamp = rospy.Time.now()
-    goal.target_pose.pose.position.x = x
-    goal.target_pose.pose.position.y = y
-    goal.target_pose.pose.position.z = 0.0
-    goal.target_pose.pose.orientation.w = w
-    print("goal sent:")
-    print(goal)
-    client.send_goal(goal)
-    wait = client.wait_for_result()
-    if not wait:
-        rospy.logerr("Action server not available!")
-        rospy.signal_shutdown("Action server not available!")
-    else:
-        return client.get_result()
 
 
 def gps_location():
