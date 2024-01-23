@@ -18,8 +18,6 @@ def movebase_client(x, y, w=1.0):
     goal.target_pose.pose.position.y = y
     goal.target_pose.pose.position.z = 0.0
     goal.target_pose.pose.orientation.w = w
-    print("goal sent:")
-    print(goal)
     client.send_goal(goal)
     wait = client.wait_for_result()
     if not wait:

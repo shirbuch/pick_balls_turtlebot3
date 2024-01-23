@@ -5,6 +5,7 @@ from __future__ import print_function
 import rospy
 import time
 import subprocess
+from pick_balls_turtlebot3.srv import *
 from pick_balls_turtlebot3.srv import PickObject,PickObjectResponse
 from pick_balls_turtlebot3.msg import Object
 from geometry_msgs.msg import Pose
@@ -12,6 +13,8 @@ from gazebo_msgs.srv import SpawnModel, DeleteModel, DeleteModelRequest
 from pick_balls_turtlebot3.srv import SensePose,SensePoseResponse
 from gazebo_msgs.msg import ModelStates, ModelState
 from tf.transformations import quaternion_from_euler, euler_from_quaternion
+
+KNAPSACK_LOCATION = [0.0, -0.7, 1.0]
 
 # todo make it work on installed env, fix duplicate from control
 GAZEBO_PATH = subprocess.getoutput("rospack find turtlebot3_gazebo")
@@ -52,20 +55,35 @@ def distance(x1, y1, x2, y2):
     dist = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** .5
     return dist
 
+def nearby(x1, y1, x2, y2):
+    dist = distance(x1, y1, x2, y2)
+    return dist <.35
+
+# todo
+def knapsack_is_empty():
+    return True
+
+    rospy.wait_for_service('sense_objects')
+    sense_objects_srv = rospy.ServiceProxy('sense_objects', SenseObjects)
+    objects = sense_objects_srv()
+    for o in objects:
+        if nearby(KNAPSACK_LOCATION[0], KNAPSACK_LOCATION[1], o.x, o.y):
+            return False
+    
+    return True
+
 def pick_nearby_object(object_name, object_x, object_y):
 	print('Trying to pick up: ' + object_name)
 	me_pose = gps_location()
-	dist = distance(me_pose[0],me_pose[1],object_x,object_y)
-	# TODO isEmpty = fcn_that_checks_that_nothing_is_in_the_knapsack() 
-	if dist <.35: # and isEmpty:
+	if nearby(me_pose[0], me_pose[1], object_x, object_y) and knapsack_is_empty():
 		delete_model(object_name)
 		time.sleep(1)
-		spawn_model(name=object_name, spawn_location=[0.0, -0.7, 1.0]) # put in knapsack
+		spawn_model(name=object_name, spawn_location=KNAPSACK_LOCATION) # put in knapsack
 		time.sleep(1)
 		print('...successfully.')
 		
 	else: 
-		print('...unsuccessfully. Need to be closer to the object to pick it')
+		print('...unsuccessfully. Need to be closer to the object to pick it or knapsack is full.')
 
 # Service logic
 def pick_object(object):
