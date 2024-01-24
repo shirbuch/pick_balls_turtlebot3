@@ -1,19 +1,25 @@
-./src/turtlebot3/turtlebot3_navigation/param/move_base_params.yaml:7:oscillation_timeout: 2 #!!! 10.0
-./src/turtlebot3/turtlebot3_navigation/param/move_base_params.yaml:8:oscillation_distance: 0.5 #!!! 0.2
-./src/turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:22:  xy_goal_tolerance: 0.2 #!!! 0.05
-./src/turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:23:  yaw_goal_tolerance: 0.3 #!!! 0.17
-Binary file ./src/turtlebot3_simulations/.git/objects/pack/pack-d109924e2002f17e23be32d232b9bffebd6ba32e.pack matches
-Binary file ./src/turtlebot3_simulations/turtlebot3_gazebo/models/room1/map.pdf matches
-Binary file ./devel/lib/turtlebot3_bringup/turtlebot3_diagnostics matches
-root@shirbu-yoga:~/catkin_ws# grep -Rnw . -e '!!!'
-./src/pick_balls_turtlebot3/README.md:4:1. in src: grep -Rnw . -e '!!!'
-Binary file ./src/turtlebot3/.git/objects/pack/pack-40c170b3430ffd0d4e652024f7bdb87288c875f4.pack matches
-./src/turtlebot3/turtlebot3_navigation/param/move_base_params.yaml:7:oscillation_timeout: 10.0 #!!! -> 5 didn't stop getting stuck
-./src/turtlebot3/turtlebot3_navigation/param/move_base_params.yaml:8:oscillation_distance: 0.2 #!!! -> 0.5 didn't stop getting stuck
-./src/turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:4:  max_vel_x: 1 #!!! 0.22
-./src/turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:11:  max_vel_trans: 1 #!!! 0.22
-./src/turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:14:  max_vel_theta: 6 #!!! 2.75
-./src/turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:22:  xy_goal_tolerance: 0.3 #!!! 0.05
-./src/turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:23:  yaw_goal_tolerance: 0.3 #!!! 0.17
-./src/turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:43:  oscillation_reset_dist: 0.05 #!! -> 0.5 didn't stop getting stuck
-./src/turtlebot3/turtlebot3_navigation/launch/turtlebot3_navigation.launch:19:  <!-- move_base !!! -->
+./pick_balls_turtlebot3/configuration_changes.txt:1:./src/turtlebot3/turtlebot3_navigation/param/move_base_params.yaml:7:oscillation_timeout: 2 #!!! 10.0
+./pick_balls_turtlebot3/configuration_changes.txt:2:./src/turtlebot3/turtlebot3_navigation/param/move_base_params.yaml:8:oscillation_distance: 0.5 #!!! 0.2
+./pick_balls_turtlebot3/configuration_changes.txt:3:./src/turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:22:  xy_goal_tolerance: 0.2 #!!! 0.05
+./pick_balls_turtlebot3/configuration_changes.txt:4:./src/turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:23:  yaw_goal_tolerance: 0.3 #!!! 0.17
+./pick_balls_turtlebot3/configuration_changes.txt:8:root@shirbu-yoga:~/catkin_ws# grep -Rnw . -e '!!!'
+./pick_balls_turtlebot3/configuration_changes.txt:9:./src/pick_balls_turtlebot3/README.md:4:1. in src: grep -Rnw . -e '!!!'
+./pick_balls_turtlebot3/configuration_changes.txt:11:./src/turtlebot3/turtlebot3_navigation/param/move_base_params.yaml:7:oscillation_timeout: 10.0 #!!! -> 5 didn't stop getting stuck
+./pick_balls_turtlebot3/configuration_changes.txt:12:./src/turtlebot3/turtlebot3_navigation/param/move_base_params.yaml:8:oscillation_distance: 0.2 #!!! -> 0.5 didn't stop getting stuck
+./pick_balls_turtlebot3/configuration_changes.txt:13:./src/turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:4:  max_vel_x: 1 #!!! 0.22
+./pick_balls_turtlebot3/configuration_changes.txt:14:./src/turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:11:  max_vel_trans: 1 #!!! 0.22
+./pick_balls_turtlebot3/configuration_changes.txt:15:./src/turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:14:  max_vel_theta: 6 #!!! 2.75
+./pick_balls_turtlebot3/configuration_changes.txt:16:./src/turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:22:  xy_goal_tolerance: 0.3 #!!! 0.05
+./pick_balls_turtlebot3/configuration_changes.txt:17:./src/turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:23:  yaw_goal_tolerance: 0.3 #!!! 0.17
+./pick_balls_turtlebot3/configuration_changes.txt:19:./src/turtlebot3/turtlebot3_navigation/launch/turtlebot3_navigation.launch:19:  <!-- move_base !!! -->
+./pick_balls_turtlebot3/README.md:4:1. in src: grep -Rnw . -e '!!!'
+Binary file ./turtlebot3/.git/objects/pack/pack-40c170b3430ffd0d4e652024f7bdb87288c875f4.pack matches
+./turtlebot3/turtlebot3_navigation/param/move_base_params.yaml:7:oscillation_timeout: 10.0 #!!! -> 5 didn't stop getting stuck
+./turtlebot3/turtlebot3_navigation/param/move_base_params.yaml:8:oscillation_distance: 0.2 #!!! -> 0.5 didn't stop getting stuck
+./turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:4:  max_vel_x: 1 #!!! 0.22
+./turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:11:  max_vel_trans: 1 #!!! 0.22
+./turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:14:  max_vel_theta: 6 #!!! 2.75
+./turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:22:  xy_goal_tolerance: 0.2 #!!! 0.05
+./turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:23:  yaw_goal_tolerance: 0.3 #!!! 0.17
+./turtlebot3/turtlebot3_navigation/param/dwa_local_planner_params_burger.yaml:43:  oscillation_reset_dist: 0.05 #!!! -> 0.5 didn't stop getting stuck
+./turtlebot3/turtlebot3_navigation/launch/turtlebot3_navigation.launc19:  <!-- move_base !!! -->

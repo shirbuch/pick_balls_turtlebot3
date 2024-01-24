@@ -8,31 +8,6 @@ import time
 from environment_functions import spawn_model, delete_model, initialize_environment, create_scene
 
 
-
-
-	
-
-
-def place_object(object_name, place_location):
-	# delete selected object from bag and place it in gazebo
-	me_pose = gps_location()
-	dist2 = distance(me_pose[0], me_pose[1], place_location[0], place_location[1])
-	# TODO: isPicked = fcn_that_checks_if_object_is_picked(object_name)
-	if not isPicked: 
-		print('Object is not with me...')
-		return False
-	if dist2<.35:
-		delete_model(object_name)
-		spawn_model(name=object_name, spawn_location=place_location)
-		print('Placed the object')
-		return True
-	else: 
-		print('Need to be closer to the location to place the object (and NOT on it!)') 
-		return False
-
-
-
-
 if __name__ == '__main__':
     # example script that picks one of the balls and places it
     # set up environment

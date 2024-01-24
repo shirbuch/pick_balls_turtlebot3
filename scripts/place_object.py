@@ -12,6 +12,15 @@ from tf.transformations import quaternion_from_euler, euler_from_quaternion
 # todo make it work on installed env, fix duplicate from pick_object and control
 GAZEBO_PATH = subprocess.getoutput("rospack find turtlebot3_gazebo")
 
+# todo fix duplicate from pick_object
+def distance(x1, y1, x2, y2):
+    dist = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** .5
+    return dist
+
+# todo
+def in_knapsack(name):
+    return True
+
 # todo fix duplicate from control and pick_object
 def spawn_model(name, file_location=GAZEBO_PATH+'/models/objects/red_ball.sdf', spawn_location=[0.0,0.0,1.0]):
     #rospy.init_node('spawn_model', log_level=rospy.INFO)
@@ -23,6 +32,23 @@ def spawn_model(name, file_location=GAZEBO_PATH+'/models/objects/red_ball.sdf', 
     spawn_model_client(model_name=name,
                        model_xml=open(file_location, 'r').read(),
                        robot_namespace='/stuff', initial_pose=pose, reference_frame='world')
+
+# renamed given code
+def place_object_nearby(object_name, place_location):
+	# delete selected object from bag and place it in gazebo
+	me_pose = gps_location()
+	dist2 = distance(me_pose[0], me_pose[1], place_location[0], place_location[1])
+	if not in_knapsack(object_name): 
+		print('Object is not with me...')
+		return False
+	if dist2<.35:
+		delete_model(object_name)
+		spawn_model(name=object_name, spawn_location=place_location)
+		print('Placed the object')
+		return True
+	else: 
+		print('Need to be closer to the location to place the object (and NOT on it!)') 
+		return False
 
 # todo fix duplicate from control and pick_object
 def delete_model(name):
@@ -48,9 +74,7 @@ def gps_location():
 def place_object(object):
     print(f"place_object: {object.name}")
     # todo check if in knapsack
-    delete_model(object.name)
-    me_pose = gps_location()
-    spawn_model(name=object.name, spawn_location=[me_pose[0]+0.15, me_pose[1]+0.15, 1.0])
+    place_object_nearby(object.name, [object.x, object.y, 1.0])
 
 def handle_place_object(req):
     try:

@@ -12,8 +12,8 @@ from gazebo_msgs.srv import SpawnModel, DeleteModel, DeleteModelRequest
 
 # todo make it work on installed env, fix duplicate from pick_object
 GAZEBO_PATH = subprocess.getoutput("rospack find turtlebot3_gazebo")
-OBJECT = Object("ball", 0, 0)
 BLUE_CUBE_NAME = "blue_cube"
+SAFTY_DISTANCE = 0.05
 
 class Object:
     def __init__(self, name, x, y):
@@ -110,10 +110,10 @@ def pick_balls_main():
     
     if blue_cube is not None:
         for o in objects.objects:
-            navigate(o.x, o.y)
+            navigate(o.x-SAFTY_DISTANCE, o.y-SAFTY_DISTANCE)
             pick_object(o)
-            navigate(blue_cube.x, blue_cube.y)
-            place_object(o)
+            navigate(blue_cube.x+SAFTY_DISTANCE, blue_cube.y+SAFTY_DISTANCE)
+            place_object(Object(o.name, blue_cube.x, blue_cube.y))
     else:
         print("No blue cube found!")
         return

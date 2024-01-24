@@ -51,6 +51,7 @@ def delete_model(name):
     req.model_name = name
     resp = srv(req)
 
+# todo fix duplicate from place_object
 def distance(x1, y1, x2, y2):
     dist = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** .5
     return dist
@@ -72,6 +73,7 @@ def knapsack_is_empty():
     
     return True
 
+# renamed given code
 def pick_nearby_object(object_name, object_x, object_y):
 	print('Trying to pick up: ' + object_name)
 	me_pose = gps_location()
