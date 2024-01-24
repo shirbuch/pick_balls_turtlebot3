@@ -73,7 +73,7 @@ def spawn_model(name, file_location=GAZEBO_PATH+'/models/objects/red_ball.sdf', 
                        robot_namespace='/stuff', initial_pose=pose, reference_frame='world')
 
 def create_scene():  
-    spawn_locations = [[1.25,0.9,0.2],[2.25,0.9,0.2],[2.5,-1.5,0.2],[3.0,-1.5,0.2]]      
+    spawn_locations = [[1.25,0.9,0.2],[2.25,0.9,0.2],[2.5,-1.5,0.2],[3.0,-1.5,0.2]] # todo make reachable random    
     for n in range(len(spawn_locations)):
         spawn_model('red_ball'+str(n), GAZEBO_PATH+'/models/objects/red_ball.sdf', spawn_locations[n])
     spawn_model(BLUE_CUBE_NAME, GAZEBO_PATH+'/models/objects/blue_cube.sdf', [1.3,-0.5,1] ) 		
@@ -119,6 +119,10 @@ def pick_balls_main():
         return
     
     navigate(0, 0, 1)
+
+# todo: implement, return if the goal was fulfilles (all red balls collected and placed at the blue cube)
+def goal_checker():
+    pass
 
 # Service logic
 if __name__ == "__main__":

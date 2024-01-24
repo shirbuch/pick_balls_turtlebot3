@@ -22,9 +22,9 @@ Messages:
 4. ./install.sh (this is to compile and source the pick_balls_turtlebot3 package and chmod +x to all script files)
 // todo insert our_world launch and model to turtlebot3_gazebo
 // todo save map files in root
-// todo Update configurations:
+// todo Update necesary configurations (speed - no, distance error - maybe):
   in src: grep -Rnw . -e '!!!'
-  and update all changes here, currently all current configurations are in the configurtion_changes.txt (run command and paste for each change)
+  and update all changes here, currently all current configurations are in the configurtion_changes.txt (run command and paste in the file for each change)
 
 ### Run:
 1. roslaunch turtlebot3_gazebo turtlebot3_our_world.launch

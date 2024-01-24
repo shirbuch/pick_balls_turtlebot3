@@ -1,0 +1,24 @@
+Hola amig@s!
+es muy bien, pero es necesito complidad el todo "todo"s.
+
+Para "Robot control":
+- do knapsack stuff (mentioned in # todo: place_object -> in_knapsack, pick_object -> knapsack_is_empty)
+
+Para "The Task":
+- spawn balls in reachable random locations (control create_scene)
+- implement goal checker (control goal_checker)
+- create launch files: a) gazebo & navigation & control b) navigation & control c) control
+- determinate necesary configurations (see readme)
+- make GAZEBO_PATH work on any env (control and other)
+- update readme (mainly scripts and configurations)
+- check that all hw requirements are met
+- run on clean env to check it's working
+- make video
+
+Bonus:
+- export duplicated functions to single point of sourcing (mentioned in # todo containing "fix duplicate")
+- remove annoying prints
+- go to balls by who's closest each time
+- shutdown nodes on finish
+
+Buena suerte!
