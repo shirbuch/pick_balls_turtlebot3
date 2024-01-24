@@ -1,5 +1,10 @@
 # pick_balls_turtlebot3 - Assignment 2 in Robotics Lab
 
+### todo:
+1. in src: grep -Rnw . -e '!!!'
+  and update all changes here, currently all current configurations are in the 
+2. search for todo in code
+
 ### Info:
 Services:
 1. Navigate(x, y, theta)->none		: Navigate to a point
@@ -16,7 +21,7 @@ Messages:
 2. Open terminal and cd into (unzipped) pick_balls_turtlebot3
 3. chmod +x install.sh
 4. ./install.sh (this is to compile and source the pick_balls_turtlebot3 package and chmod +x to all script files)
-5. Change in: \catkin_ws\src\turtlebot3\turtlebot3_navigation\param\dwa_local_planner_params_burger.yaml
+5. todo check relevance: Change in: \catkin_ws\src\turtlebot3\turtlebot3_navigation\param\dwa_local_planner_params_burger.yaml
     # Goal Tolerance Parameters
     xy_goal_tolerance: 0.2 # 0.05
     yaw_goal_tolerance: 0.3 # 0.17
@@ -30,7 +35,7 @@ Messages:
 2. roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/map.yaml
 3. roslaunch pick_balls_turtlebot3 control.launch
 
-### Change Speed:
+### todo Change Speed:
 in: \catkin_ws\src\turtlebot3\turtlebot3_navigation\param\dwa_local_planner_params_burger.yaml
   max_vel_x: 5 # 0.22
   max_vel_trans: 5 # 0.22

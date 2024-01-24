@@ -60,7 +60,7 @@ def sense_objects():
         print("Service call failed: %s"%e)
 
 # Init environment
-# todo fix duplicate from pick_object
+# todo fix duplicate from pick_object and place_object
 def spawn_model(name, file_location=GAZEBO_PATH+'/models/objects/red_ball.sdf', spawn_location=[0.0,0.0,1.0]):
     #rospy.init_node('spawn_model', log_level=rospy.INFO)
     pose = Pose()
@@ -78,7 +78,7 @@ def create_scene():
         spawn_model('red_ball'+str(n), GAZEBO_PATH+'/models/objects/red_ball.sdf', spawn_locations[n])
     spawn_model(BLUE_CUBE_NAME, GAZEBO_PATH+'/models/objects/blue_cube.sdf', [1.3,-0.5,1] ) 		
 
-# todo fix duplicate from pick_object
+# todo fix duplicate from pick_object and place_object
 def delete_model(name):
     # delete model
     srv = rospy.ServiceProxy('/gazebo/delete_model', DeleteModel)
@@ -113,7 +113,7 @@ def pick_balls_main():
             navigate(o.x, o.y)
             pick_object(o)
             navigate(blue_cube.x, blue_cube.y)
-            # place_object(o) # todo
+            place_object(o)
     else:
         print("No blue cube found!")
         return

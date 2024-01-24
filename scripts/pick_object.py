@@ -31,7 +31,7 @@ def gps_location():
     print(me_pose.position.x, me_pose.position.y, me_pose_angles[2])
     return me_pose.position.x, me_pose.position.y, me_pose_angles[2]
 
-# todo fix duplicate from control
+# todo fix duplicate from control and place_object
 def spawn_model(name, file_location=GAZEBO_PATH+'/models/objects/red_ball.sdf', spawn_location=[0.0,0.0,1.0]):
     #rospy.init_node('spawn_model', log_level=rospy.INFO)
     pose = Pose()
@@ -43,7 +43,7 @@ def spawn_model(name, file_location=GAZEBO_PATH+'/models/objects/red_ball.sdf', 
                        model_xml=open(file_location, 'r').read(),
                        robot_namespace='/stuff', initial_pose=pose, reference_frame='world')
 
-# todo fix duplicate from control
+# todo fix duplicate from control and place_object
 def delete_model(name):
     # delete model
     srv = rospy.ServiceProxy('/gazebo/delete_model', DeleteModel)
