@@ -60,7 +60,7 @@ def nearby(x1, y1, x2, y2):
     dist = distance(x1, y1, x2, y2)
     return dist <.35
 
-# todo
+# todo implement
 def knapsack_is_empty():
     return True
 
@@ -73,8 +73,8 @@ def knapsack_is_empty():
     
     return True
 
-# renamed given code
-def pick_nearby_object(object_name, object_x, object_y):
+# Given code
+def pick_object(object_name, object_x, object_y):
 	print('Trying to pick up: ' + object_name)
 	me_pose = gps_location()
 	if nearby(me_pose[0], me_pose[1], object_x, object_y) and knapsack_is_empty():
@@ -89,13 +89,11 @@ def pick_nearby_object(object_name, object_x, object_y):
 		print('...unsuccessfully. Need to be closer to the object to pick it or knapsack is full.')
 
 # Service logic
-def pick_object(object):
-    print(f"pick_object: {object}")
-    pick_nearby_object(object.name, object.x, object.y)
-
 def handle_pick_object(req):
     try:
-        pick_object(req.object)
+        object = req.object
+        print(f"pick_object: {object}")
+        pick_object(object.name, object.x, object.y)
         return PickObjectResponse()
     except rospy.ROSInterruptException as e:
         print(f"Error: {e}")

@@ -1,9 +1,8 @@
 # pick_balls_turtlebot3 - Assignment 2 in Robotics Lab
 
-### todo:
-1. in src: grep -Rnw . -e '!!!'
-  and update all changes here, currently all current configurations are in the 
-2. search for todo in code
+### Important:
+For each configuration change please add "!!!" nearby so we will find it later
+Read build last todo
 
 ### Info:
 Services:
@@ -21,33 +20,23 @@ Messages:
 2. Open terminal and cd into (unzipped) pick_balls_turtlebot3
 3. chmod +x install.sh
 4. ./install.sh (this is to compile and source the pick_balls_turtlebot3 package and chmod +x to all script files)
-5. todo check relevance: Change in: \catkin_ws\src\turtlebot3\turtlebot3_navigation\param\dwa_local_planner_params_burger.yaml
-    # Goal Tolerance Parameters
-    xy_goal_tolerance: 0.2 # 0.05
-    yaw_goal_tolerance: 0.3 # 0.17
-
 // todo insert our_world launch and model to turtlebot3_gazebo
 // todo save map files in root
+// todo Update configurations:
+  in src: grep -Rnw . -e '!!!'
+  and update all changes here, currently all current configurations are in the configurtion_changes.txt (run command and paste for each change)
 
 ### Run:
-// todo put together after finish coding and wait for each to load before continuing
 1. roslaunch turtlebot3_gazebo turtlebot3_our_world.launch
 2. roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/map.yaml
 3. roslaunch pick_balls_turtlebot3 control.launch
-
-### todo Change Speed:
-in: \catkin_ws\src\turtlebot3\turtlebot3_navigation\param\dwa_local_planner_params_burger.yaml
-  max_vel_x: 5 # 0.22
-  max_vel_trans: 5 # 0.22
-  max_vel_theta: 9 # 2.75
-
+// todo put together after finish coding and wait for each to load before continuing
 
 ### Notes to self:
 # About changing speed:
-## original dwa_local_planner_params_burger and changed base_local_planner_params is not working
-## changed dwa_local_planner_params_burger and original base_local_planner_params is working!!!
+# change max_vel_x, max_vel_trans, max_vel_theta in dwa_local_planner_params_burger
 
-# no need for having affect, but might do
+# no need for speed change, but has bad affect
 \catkin_ws\src\turtlebot3\turtlebot3_navigation\param\base_local_planner_params.yaml
   sim_time: 6 # 0.8
   vx_samples: 50 # 18
@@ -62,5 +51,4 @@ by https://github.com/ROBOTIS-GIT/turtlebot3/issues/897
 \catkin_ws\src\turtlebot3\turtlebot3_navigation\param\base_local_planner_params.yaml
   max_vel_x: 9 # 0.18
   min_vel_x: 0.08
-
   max_vel_theta:  3 # 1.0

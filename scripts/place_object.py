@@ -17,7 +17,7 @@ def distance(x1, y1, x2, y2):
     dist = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** .5
     return dist
 
-# todo
+# todo implement
 def in_knapsack(name):
     return True
 
@@ -33,8 +33,8 @@ def spawn_model(name, file_location=GAZEBO_PATH+'/models/objects/red_ball.sdf', 
                        model_xml=open(file_location, 'r').read(),
                        robot_namespace='/stuff', initial_pose=pose, reference_frame='world')
 
-# renamed given code
-def place_object_nearby(object_name, place_location):
+# Given code
+def place_object(object_name, place_location):
 	# delete selected object from bag and place it in gazebo
 	me_pose = gps_location()
 	dist2 = distance(me_pose[0], me_pose[1], place_location[0], place_location[1])
@@ -71,14 +71,11 @@ def gps_location():
     return me_pose.position.x, me_pose.position.y, me_pose_angles[2]
 
 # Service logic
-def place_object(object):
-    print(f"place_object: {object.name}")
-    # todo check if in knapsack
-    place_object_nearby(object.name, [object.x, object.y, 1.0])
-
 def handle_place_object(req):
     try:
-        place_object(req.object)
+        object = req.object
+        print(f"place_object: {object.name}")
+        place_object(object.name, [object.x, object.y, 1.0])
         return PlaceObjectResponse()
     except rospy.ROSInterruptException as e:
         print(f"Error: {e}")
