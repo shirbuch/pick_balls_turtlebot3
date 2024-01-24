@@ -13,6 +13,7 @@ from gazebo_msgs.srv import SpawnModel, DeleteModel, DeleteModelRequest
 # todo make it work on installed env, fix duplicate from pick_object
 GAZEBO_PATH = subprocess.getoutput("rospack find turtlebot3_gazebo")
 OBJECT = Object("ball", 0, 0)
+BLUE_CUBE_NAME = "blue_cube"
 
 class Object:
     def __init__(self, name, x, y):
@@ -72,14 +73,10 @@ def spawn_model(name, file_location=GAZEBO_PATH+'/models/objects/red_ball.sdf', 
                        robot_namespace='/stuff', initial_pose=pose, reference_frame='world')
 
 def create_scene():  
-    #delete_model('blue_cube') 
-    #time.sleep(1) 
-    spawn_locations = [[1.25,0.9,0.2],[2.25,0.9,0.2],[-0.3,0,0.2],[3.0,-1.5,0.2]]      
+    spawn_locations = [[1.25,0.9,0.2],[2.25,0.9,0.2],[2.5,-1.5,0.2],[3.0,-1.5,0.2]]      
     for n in range(len(spawn_locations)):
-        #delete_model('red_ball'+str(n)) 
-        #time.sleep(.5)
         spawn_model('red_ball'+str(n), GAZEBO_PATH+'/models/objects/red_ball.sdf', spawn_locations[n])
-    spawn_model('blue_cube', GAZEBO_PATH+'/models/objects/blue_cube.sdf', [1.3,-0.5,1] ) 		
+    spawn_model(BLUE_CUBE_NAME, GAZEBO_PATH+'/models/objects/blue_cube.sdf', [1.3,-0.5,1] ) 		
 
 # todo fix duplicate from pick_object
 def delete_model(name):
@@ -95,6 +92,34 @@ def clear_scene():
     for o in objects.objects:
         delete_model(o.name)
 
+def reset_scene():
+    clear_scene()
+    navigate(0, 0, 1)
+
+def pick_balls_main():
+    reset_scene()
+    create_scene()
+    sleep(5)
+    objects = sense_objects()
+    
+    blue_cube = None
+    for i, o in enumerate(objects.objects):
+        if o.name == BLUE_CUBE_NAME:
+            blue_cube = objects.objects.pop(i)
+            break
+    
+    if blue_cube is not None:
+        for o in objects.objects:
+            navigate(o.x, o.y)
+            pick_object(o)
+            navigate(blue_cube.x, blue_cube.y)
+            # place_object(o) # todo
+    else:
+        print("No blue cube found!")
+        return
+    
+    navigate(0, 0, 1)
+
 # Service logic
 if __name__ == "__main__":
     rospy.wait_for_service('navigate')
@@ -107,19 +132,4 @@ if __name__ == "__main__":
     print("============  CONTROL  ===============")
     print("=====================================")
 
-    clear_scene()
-    navigate(0, 0)
-    create_scene()
-    # print(f"=== Pose: {sense_pose()}\n===")
-    # navigate(1, 1, 1.0)
-    # print(f"=== Pose: {sense_pose()}\n===")
-    # navigate(0, 0, 3.0)
-    # print(f"=== Pose: {sense_pose()}\n===")
-    # pick_object(OBJECT)
-    # place_object(OBJECT)
-    sleep(5)
-    objects = sense_objects()
-    for o in objects.objects:
-        navigate(o.x, o.y)
-        pick_object(o)
-    
+    pick_balls_main()

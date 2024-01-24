@@ -78,6 +78,7 @@ def pick_nearby_object(object_name, object_x, object_y):
 	if nearby(me_pose[0], me_pose[1], object_x, object_y) and knapsack_is_empty():
 		delete_model(object_name)
 		time.sleep(1)
+        # note that it will always spawn a red ball, if needed pass other model path
 		spawn_model(name=object_name, spawn_location=KNAPSACK_LOCATION) # put in knapsack
 		time.sleep(1)
 		print('...successfully.')
