@@ -27,9 +27,7 @@ Messages:
   and update all changes here, currently all current configurations are in the configurtion_changes.txt (run command and paste in the file for each change)
 
 ### Run:
-1. roslaunch turtlebot3_gazebo turtlebot3_our_world.launch
-2. roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/map.yaml
-3. roslaunch pick_balls_turtlebot3 control.launch
+1. roslaunch pick_balls_turtlebot3 control.launch
 // todo put together after finish coding and wait for each to load before continuing
 
 ### Notes to self:
