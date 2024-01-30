@@ -6,7 +6,7 @@ Para "Robot control":
 
 Para "The Task":
 - spawn balls in reachable random locations (control create_scene) - DONE
-- implement goal checker (control goal_checker)
+- implement goal checker (control goal_checker) - DONE
 - create launch files: a) gazebo & navigation & control b) navigation & control c) control - DONE (all in one launch file)
 - determinate necesary configurations (see readme)
 - make GAZEBO_PATH work on any env (control and other)
