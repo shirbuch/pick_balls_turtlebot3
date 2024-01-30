@@ -1,8 +1,13 @@
 <launch>
+  <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_our_world.launch" />
+  <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch">
+    <arg name="map_file" value="$(env HOME)/map.yaml"/>
+  </include>
   <node name="navigate_node" pkg="pick_balls_turtlebot3" type="navigate.py" output="screen"/>
   <node name="sense_pose_node" pkg="pick_balls_turtlebot3" type="sense_pose.py" output="screen"/>
   <node name="sense_objects_node" pkg="pick_balls_turtlebot3" type="sense_objects.py" output="screen"/>
   <node name="pick_object_node" pkg="pick_balls_turtlebot3" type="pick_object.py" output="screen"/>
   <node name="place_object_node" pkg="pick_balls_turtlebot3" type="place_object.py" output="screen"/>
+  <node name="goal_checker_node" pkg="pick_balls_turtlebot3" type="goal_checker.py" output="screen"/>
   <node name="control_node" pkg="pick_balls_turtlebot3" type="control.py" output="screen"/>
 </launch>

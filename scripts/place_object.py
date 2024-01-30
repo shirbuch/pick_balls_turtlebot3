@@ -1,8 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from __future__ import print_function
 import subprocess
 import rospy
+from pick_balls_turtlebot3.srv import *
 from pick_balls_turtlebot3.srv import PlaceObject,PlaceObjectResponse
 from geometry_msgs.msg import Pose
 from gazebo_msgs.srv import SpawnModel, DeleteModel, DeleteModelRequest
@@ -12,14 +13,30 @@ from tf.transformations import quaternion_from_euler, euler_from_quaternion
 # todo make it work on installed env, fix duplicate from pick_object and control
 GAZEBO_PATH = subprocess.getoutput("rospack find turtlebot3_gazebo")
 
+KNAPSACK_LOCATION = [0.0, -0.7, 1.0]
+
+z_location = 1.0
+
 # todo fix duplicate from pick_object
 def distance(x1, y1, x2, y2):
     dist = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** .5
     return dist
 
+def nearby(x1, y1, x2, y2):
+    dist = distance(x1, y1, x2, y2)
+    return dist <.35
+
 # todo implement
 def in_knapsack(name):
-    return True
+    print(f"Checking if {name} is in knapsack")
+    rospy.wait_for_service('sense_objects')
+    sense_objects_srv = rospy.ServiceProxy('sense_objects', SenseObjects)
+    objects = sense_objects_srv().objects
+    for o in objects:
+        if nearby(KNAPSACK_LOCATION[0], KNAPSACK_LOCATION[1], o.x, o.y) and o.name == name:
+            return True
+    
+    return False
 
 # todo fix duplicate from control and pick_object
 def spawn_model(name, file_location=GAZEBO_PATH+'/models/objects/red_ball.sdf', spawn_location=[0.0,0.0,1.0]):
@@ -73,9 +90,11 @@ def gps_location():
 # Service logic
 def handle_place_object(req):
     try:
+        global z_location
         object = req.object
         print(f"place_object: {object.name}")
-        place_object(object.name, [object.x, object.y, 1.0])
+        place_object(object.name, [object.x, object.y, z_location])
+        z_location += 1.0
         return PlaceObjectResponse()
     except rospy.ROSInterruptException as e:
         print(f"Error: {e}")

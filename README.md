@@ -19,7 +19,7 @@ Messages:
 1. Unzip pick_balls_turtlebot3.zip into ~/catkin_ws/src
 2. Open terminal and cd into (unzipped) pick_balls_turtlebot3
 3. chmod +x install.sh
-4. ./install.sh (this is to compile and source the pick_balls_turtlebot3 package and chmod +x to all script files)
+4. . install.sh (this is to compile and source the pick_balls_turtlebot3 package and chmod +x to all script files)
 // todo insert our_world launch and model to turtlebot3_gazebo
 // todo save map files in root
 // todo Update necesary configurations (speed - no, distance error - maybe):

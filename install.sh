@@ -16,7 +16,12 @@ for file in *; do
         chmod +x "$file"
         echo "chmod +x $file"
     fi
+done
 
+echo export TURTLEBOT3_MODEL=burger
+export TURTLEBOT3_MODEL=burger
+
+echo source ~/catkin_ws/devel/setup.bash
 source ~/catkin_ws/devel/setup.bash
 
-done
+cd "$original_dir"

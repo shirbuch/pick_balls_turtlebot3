@@ -1,10 +1,11 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from __future__ import print_function
 from time import sleep
 
 import rospy
 import subprocess
+import random
 from pick_balls_turtlebot3.srv import *
 from pick_balls_turtlebot3.msg import Object
 from geometry_msgs.msg import Pose
@@ -13,7 +14,8 @@ from gazebo_msgs.srv import SpawnModel, DeleteModel, DeleteModelRequest
 # todo make it work on installed env, fix duplicate from pick_object
 GAZEBO_PATH = subprocess.getoutput("rospack find turtlebot3_gazebo")
 BLUE_CUBE_NAME = "blue_cube"
-SAFTY_DISTANCE = 0.05
+SAFETY_DISTANCE_RED = 0.05
+SAFETY_DISTANCE_BLUE = 0.1
 
 class Object:
     def __init__(self, name, x, y):
@@ -74,8 +76,11 @@ def spawn_model(name, file_location=GAZEBO_PATH+'/models/objects/red_ball.sdf', 
 
 def create_scene():  
     spawn_locations = [[1.25,0.9,0.2],[2.25,0.9,0.2],[2.5,-1.5,0.2],[3.0,-1.5,0.2]] # todo make reachable random    
-    for n in range(len(spawn_locations)):
-        spawn_model('red_ball'+str(n), GAZEBO_PATH+'/models/objects/red_ball.sdf', spawn_locations[n])
+    for i in range(len(spawn_locations)):
+        location = spawn_locations[i]
+        location[0] += random.uniform(-0.2,0.2)
+        location[1] += random.uniform(-0.2,0.2)
+        spawn_model('red_ball'+str(i), GAZEBO_PATH+'/models/objects/red_ball.sdf', location)
     spawn_model(BLUE_CUBE_NAME, GAZEBO_PATH+'/models/objects/blue_cube.sdf', [1.3,-0.5,1] ) 		
 
 # todo fix duplicate from pick_object and place_object
@@ -96,6 +101,14 @@ def reset_scene():
     clear_scene()
     navigate(0, 0, 1)
 
+def goal_checker(x, y):
+    try:
+        goal_checker_srv = rospy.ServiceProxy('goal_checker', GoalChecker)
+        resp = goal_checker_srv(x, y)
+        return resp
+    except rospy.ServiceException as e:
+        print("Service call failed: %s"%e)
+
 def pick_balls_main():
     reset_scene()
     create_scene()
@@ -110,19 +123,23 @@ def pick_balls_main():
     
     if blue_cube is not None:
         for o in objects.objects:
-            navigate(o.x-SAFTY_DISTANCE, o.y-SAFTY_DISTANCE)
+            navigate(o.x-SAFETY_DISTANCE_RED, o.y-SAFETY_DISTANCE_RED)
             pick_object(o)
-            navigate(blue_cube.x+SAFTY_DISTANCE, blue_cube.y+SAFTY_DISTANCE)
+            navigate(blue_cube.x+SAFETY_DISTANCE_BLUE, blue_cube.y+SAFETY_DISTANCE_BLUE)
             place_object(Object(o.name, blue_cube.x, blue_cube.y))
     else:
         print("No blue cube found!")
         return
     
-    navigate(0, 0, 1)
+    # navigate(0, 0, 1)
+    gm = goal_checker(blue_cube.x, blue_cube.y)
+    if gm:
+        print("Goal Checker passed succesfully")
+    else:
+        print("Goal not met.")
 
 # todo: implement, return if the goal was fulfilles (all red balls collected and placed at the blue cube)
-def goal_checker():
-    pass
+
 
 # Service logic
 if __name__ == "__main__":
@@ -131,6 +148,7 @@ if __name__ == "__main__":
     rospy.wait_for_service('place_object')
     rospy.wait_for_service('sense_pose')
     rospy.wait_for_service('sense_objects')
+    rospy.wait_for_service('goal_checker')
 
     print("=====================================")
     print("============  CONTROL  ===============")

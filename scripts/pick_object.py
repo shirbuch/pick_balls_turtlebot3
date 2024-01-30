@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from __future__ import print_function
 
@@ -62,11 +62,10 @@ def nearby(x1, y1, x2, y2):
 
 # todo implement
 def knapsack_is_empty():
-    return True
-
+    print(f"Checking if knapsack is empty")
     rospy.wait_for_service('sense_objects')
     sense_objects_srv = rospy.ServiceProxy('sense_objects', SenseObjects)
-    objects = sense_objects_srv()
+    objects = sense_objects_srv().objects
     for o in objects:
         if nearby(KNAPSACK_LOCATION[0], KNAPSACK_LOCATION[1], o.x, o.y):
             return False

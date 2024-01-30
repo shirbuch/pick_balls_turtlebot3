@@ -2,12 +2,12 @@ Hola amig@s!
 es muy bien, pero es necesito complidad el todo "todo"s.
 
 Para "Robot control":
-- do knapsack stuff (mentioned in # todo: place_object -> in_knapsack, pick_object -> knapsack_is_empty)
+- do knapsack stuff (mentioned in # todo: place_object -> in_knapsack, pick_object -> knapsack_is_empty) - DONE
 
 Para "The Task":
-- spawn balls in reachable random locations (control create_scene)
+- spawn balls in reachable random locations (control create_scene) - DONE
 - implement goal checker (control goal_checker)
-- create launch files: a) gazebo & navigation & control b) navigation & control c) control
+- create launch files: a) gazebo & navigation & control b) navigation & control c) control - DONE (all in one launch file)
 - determinate necesary configurations (see readme)
 - make GAZEBO_PATH work on any env (control and other)
 - update readme (mainly scripts and configurations)
