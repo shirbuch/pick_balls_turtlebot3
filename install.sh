@@ -18,6 +18,14 @@ for file in *; do
     fi
 done
 
+cd "$original_dir/map"
+for file in *; do
+    if [ -f "$file" ]; then
+        cp "$file" ~/
+        echo "cp $file ~/"
+    fi
+done
+
 echo export TURTLEBOT3_MODEL=burger
 export TURTLEBOT3_MODEL=burger
 
