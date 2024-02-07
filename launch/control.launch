@@ -8,6 +8,5 @@
   <node name="sense_objects_node" pkg="pick_balls_turtlebot3" type="sense_objects.py" output="screen"/>
   <node name="pick_object_node" pkg="pick_balls_turtlebot3" type="pick_object.py" output="screen"/>
   <node name="place_object_node" pkg="pick_balls_turtlebot3" type="place_object.py" output="screen"/>
-  <node name="goal_checker_node" pkg="pick_balls_turtlebot3" type="goal_checker.py" output="screen"/>
   <node name="control_node" pkg="pick_balls_turtlebot3" type="control.py" output="screen"/>
 </launch>

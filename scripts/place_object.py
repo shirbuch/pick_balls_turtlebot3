@@ -15,8 +15,6 @@ GAZEBO_PATH = subprocess.getoutput("rospack find turtlebot3_gazebo")
 
 KNAPSACK_LOCATION = [0.0, -0.7, 1.0]
 
-z_location = 1.0
-
 # todo fix duplicate from pick_object
 def distance(x1, y1, x2, y2):
     dist = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** .5
@@ -52,20 +50,21 @@ def spawn_model(name, file_location=GAZEBO_PATH+'/models/objects/red_ball.sdf', 
 
 # Given code
 def place_object(object_name, place_location):
-	# delete selected object from bag and place it in gazebo
-	me_pose = gps_location()
-	dist2 = distance(me_pose[0], me_pose[1], place_location[0], place_location[1])
-	if not in_knapsack(object_name): 
-		print('Object is not with me...')
-		return False
-	if dist2<.35:
-		delete_model(object_name)
-		spawn_model(name=object_name, spawn_location=place_location)
-		print('Placed the object')
-		return True
-	else: 
-		print('Need to be closer to the location to place the object (and NOT on it!)') 
-		return False
+    # delete selected object from bag and place it in gazebo
+    me_pose = gps_location()
+    dist2 = distance(me_pose[0], me_pose[1], place_location[0], place_location[1])
+    if not in_knapsack(object_name): 
+        print('Object is not with me...')
+        return False
+    # if dist2<.35:
+    delete_model(object_name)
+    print(f"Placing {object_name} in {place_location}")
+    spawn_model(name=object_name, spawn_location=place_location)
+    print('Placed the object')
+    return True
+    # else: 
+    #     print('Need to be closer to the location to place the object (and NOT on it!)') 
+    #     return False
 
 # todo fix duplicate from control and pick_object
 def delete_model(name):
@@ -90,11 +89,9 @@ def gps_location():
 # Service logic
 def handle_place_object(req):
     try:
-        global z_location
         object = req.object
         print(f"place_object: {object.name}")
-        place_object(object.name, [object.x, object.y, z_location])
-        z_location += 1.0
+        place_object(object.name, [object.x, object.y, 1.0])
         return PlaceObjectResponse()
     except rospy.ROSInterruptException as e:
         print(f"Error: {e}")
