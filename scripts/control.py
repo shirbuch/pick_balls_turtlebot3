@@ -15,7 +15,8 @@ from gazebo_msgs.srv import SpawnModel, DeleteModel, DeleteModelRequest
 GAZEBO_PATH = subprocess.getoutput("rospack find turtlebot3_gazebo")
 BLUE_CUBE_NAME = "blue_cube"
 SAFETY_DISTANCE_RED = 0.05
-SAFETY_DISTANCE_BLUE = 0.1
+SAFETY_DISTANCE_BLUE = 0.15
+init_ball_locations = {}
 
 class Object:
     def __init__(self, name, x, y):
@@ -81,6 +82,7 @@ def create_scene():
         location[0] += random.uniform(-0.2,0.2)
         location[1] += random.uniform(-0.2,0.2)
         spawn_model('red_ball'+str(i), GAZEBO_PATH+'/models/objects/red_ball.sdf', location)
+        init_ball_locations['red_ball'+str(i)] = location
     spawn_model(BLUE_CUBE_NAME, GAZEBO_PATH+'/models/objects/blue_cube.sdf', [1.3,-0.5,1] ) 		
 
 # todo fix duplicate from pick_object and place_object
@@ -102,12 +104,15 @@ def reset_scene():
     navigate(0, 0, 1)
 
 def goal_checker(x, y):
-    try:
-        goal_checker_srv = rospy.ServiceProxy('goal_checker', GoalChecker)
-        resp = goal_checker_srv(x, y)
-        return resp
-    except rospy.ServiceException as e:
-        print("Service call failed: %s"%e)
+    objects = sense_objects()
+    for o in objects.objects:
+        if o.name == BLUE_CUBE_NAME:
+            continue
+        if init_ball_locations[o.name][0] == o.x and init_ball_locations[o.name][1] == o.y:
+            print("Goal Checker failed")
+            return False
+    print("Goal Checker criteria met.")
+    return True
 
 def pick_balls_main():
     reset_scene()
@@ -133,10 +138,7 @@ def pick_balls_main():
     
     # navigate(0, 0, 1)
     gm = goal_checker(blue_cube.x, blue_cube.y)
-    if gm:
-        print("Goal Checker passed succesfully")
-    else:
-        print("Goal not met.")
+        
 
 # todo: implement, return if the goal was fulfilles (all red balls collected and placed at the blue cube)
 
@@ -148,7 +150,6 @@ if __name__ == "__main__":
     rospy.wait_for_service('place_object')
     rospy.wait_for_service('sense_pose')
     rospy.wait_for_service('sense_objects')
-    rospy.wait_for_service('goal_checker')
 
     print("=====================================")
     print("============  CONTROL  ===============")

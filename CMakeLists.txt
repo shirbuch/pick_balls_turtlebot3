@@ -61,7 +61,6 @@ add_service_files(
   SenseObjects.srv
   PickObject.srv
   PlaceObject.srv
-  GoalChecker.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -163,7 +162,7 @@ include_directories(
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
-catkin_install_python(PROGRAMS scripts/navigate.py scripts/sense_pose.py scripts/sense_objects.py scripts/pick_object.py scripts/place_object.py scripts/goal_checker.py
+catkin_install_python(PROGRAMS scripts/navigate.py scripts/sense_pose.py scripts/sense_objects.py scripts/pick_object.py scripts/place_object.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
