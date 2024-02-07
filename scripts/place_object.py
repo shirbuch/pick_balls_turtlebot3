@@ -56,15 +56,15 @@ def place_object(object_name, place_location):
     if not in_knapsack(object_name): 
         print('Object is not with me...')
         return False
-    # if dist2<.35:
-    delete_model(object_name)
-    print(f"Placing {object_name} in {place_location}")
-    spawn_model(name=object_name, spawn_location=place_location)
-    print('Placed the object')
-    return True
-    # else: 
-    #     print('Need to be closer to the location to place the object (and NOT on it!)') 
-    #     return False
+    if dist2<.35:
+        delete_model(object_name)
+        print(f"Placing {object_name} in {place_location}")
+        spawn_model(name=object_name, spawn_location=place_location)
+        print('Placed the object')
+        return True
+    else: 
+        print('Need to be closer to the location to place the object (and NOT on it!)') 
+        return False
 
 # todo fix duplicate from control and pick_object
 def delete_model(name):
