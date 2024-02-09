@@ -1,9 +1,5 @@
 # pick_balls_turtlebot3 - Assignment 2 in Robotics Lab
 
-### Important:
-For each configuration change please add "!!!" nearby so we will find it later
-Read build last todo
-
 ### Info:
 Services:
 1. Navigate(x, y, theta)->none		: Navigate to a point
@@ -32,3 +28,22 @@ Messages:
 ### Run:
 1. roslaunch pick_balls_turtlebot3 control.launch
 
+
+### Bonus - speed change:
+Based on research we have done, these are owr insigts about possible configurations for changing the robot's speed:
+(working) dwa_local_planner_params_burger:
+	max_vel_x, max_vel_trans, max_vel_theta.
+
+(has bad effect on navigation) turtlebot3_navigation\param\base_local_planner_params.yaml:
+	sim_time, vx_samples.
+(has no effect) in same file:
+	max_vel_x, min_vel_x, max_vel_theta.
+
+(has no effect) in turtlebot3_simulations\turtlebot3_gazebo\include\turtlebot3_gazebo\turtlebot3_drive.h:
+	LINEAR_VELOCITY, ANGULAR_VELOCITY. 
+	by https://github.com/ROBOTIS-GIT/turtlebot3/issues/897
+
+
+### Important:
+For each configuration change please add "!!!" nearby so we will find it later
+Read build last todo
