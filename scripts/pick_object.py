@@ -60,7 +60,7 @@ def nearby(x1, y1, x2, y2):
     dist = distance(x1, y1, x2, y2)
     return dist <.35
 
-# todo implement
+# todo fix duplicate from place_object
 def knapsack_is_empty():
     print(f"Checking if knapsack is empty")
     rospy.wait_for_service('sense_objects')

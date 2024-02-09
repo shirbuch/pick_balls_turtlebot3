@@ -140,9 +140,6 @@ def pick_balls_main():
     gm = goal_checker(blue_cube.x, blue_cube.y)
         
 
-# todo: implement, return if the goal was fulfilles (all red balls collected and placed at the blue cube)
-
-
 # Service logic
 if __name__ == "__main__":
     rospy.wait_for_service('navigate')

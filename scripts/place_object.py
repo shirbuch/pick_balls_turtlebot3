@@ -24,7 +24,7 @@ def nearby(x1, y1, x2, y2):
     dist = distance(x1, y1, x2, y2)
     return dist <.35
 
-# todo implement
+# todo fix duplicate from pick_object
 def in_knapsack(name):
     print(f"Checking if {name} is in knapsack")
     rospy.wait_for_service('sense_objects')

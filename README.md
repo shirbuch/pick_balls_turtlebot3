@@ -46,4 +46,3 @@ Based on research we have done, these are owr insigts about possible configurati
 
 ### Important:
 For each configuration change please add "!!!" nearby so we will find it later
-Read build last todo
